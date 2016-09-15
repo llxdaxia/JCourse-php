@@ -2,10 +2,9 @@
 /**
  * Created by PhpStorm.
  * User: linlongxin
- * Date: 2016/8/6
- * Time: 22:49
+ * Date: 2016/9/14
+ * Time: 9:28
  */
-
 include '../base/check.php';
 include '../base/connect_pdo.php';
 
@@ -18,7 +17,7 @@ if ($page_num == 0) {
 $start = $page_num * $page;
 $end = $page_num * ($page + 1);
 
-$sql = "SELECT * FROM j_course LIMIT $start,$page_num";
+$sql = "SELECT * FROM j_video LIMIT $start,$page_num";
 $query_result = $pdo_connect->query($sql);
 $rows = $query_result->fetchAll();
 
@@ -26,10 +25,9 @@ $result = array();
 $index = 0;
 foreach ($rows as $row) {
     $temp['id'] = intval($row['id']);
+    $temp['url'] = $row['url'];
     $temp['subtitle'] = $row['subtitle'];
-    $temp['cover'] = $row['cover'];
     $temp['title'] = $row['title'];
-    $temp['content'] = $row['content'];
 
     $result[$index] = $temp;
     $index ++;

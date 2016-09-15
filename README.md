@@ -24,6 +24,12 @@
  - cover //封面
  - title  //标题
  - content
+ 
+##j_video --- java视频
+ - id
+ - url
+ - title
+ - subtitle
 
 ##j_course_relation --- java课程关系表
 
@@ -36,6 +42,7 @@
  - id
  - user_id
  - a_course_id
+
  
 # API
 
