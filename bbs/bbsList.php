@@ -37,9 +37,11 @@ foreach ($rows as $row) {
 
     //BBS内容
     $temp['id'] = $bbs_id;
+    $temp['authorId'] = $author_id;
     $temp['title'] = $row['title'];
     $temp['content'] = $row['content'];
     $temp['pictures'] = $row['pictures'];
+    $temp['time'] = strtotime($row['time']);
     //作者信息相关
     $temp['name'] = $author['name'];
     $temp['sign'] = $author['sign'];

@@ -33,6 +33,7 @@ $result['avatar'] = $author['avatar'];
 $result['title'] = $row['title'];
 $result['content'] = $row['content'];
 $result['pictures'] = $row['pictures'];
+$result['time'] = strtotime($row['time']);
 
 //bbs关系表查找
 $bbs_sql = "SELECT * FROM bbs_relation WHERE bbs_id='$bbs_id'";

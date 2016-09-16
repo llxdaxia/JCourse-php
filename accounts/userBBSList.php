@@ -13,7 +13,7 @@ include '../base/statusCode.php';
 
 $id = $_POST['id'];
 
-$sql = "SELECT * FROM bbs WHERE author_id = '$id'";
+$sql = "SELECT * FROM bbs WHERE author_id = '$id' ORDER BY id DESC";
 $query = $pdo_connect->query($sql);
 $rows = $query->fetchAll();
 
@@ -33,6 +33,7 @@ foreach ($rows as $row){
     $temp['title'] = $row['title'];
     $temp['content'] = $row['content'];
     $temp['pictures'] = $row['pictures'];
+    $temp['time'] = strtotime($row['time']);
     //作者信息相关
     $temp['name'] = $author['name'];
     $temp['sign'] = $author['sign'];

@@ -16,7 +16,7 @@ $author_id = get_UID($headers);
 $pictures = $_POST['pictures'];
 $content = $_POST['content'];
 $title = $_POST['title'];
-$current_time = date("Y-m-d h:i:s");
+$current_time = date("Y-m-d H:i:s");
 
 $sql = "INSERT INTO bbs (author_id,title,content,pictures,time) 
 VALUES ('$author_id','$title','$content','$pictures','$current_time')";
