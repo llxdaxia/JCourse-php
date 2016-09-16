@@ -31,19 +31,20 @@ foreach ($rows as $row) {
     $bbs_id = intval($row['id']);
     $author_id = intval($row['author_id']);
 
-    //BBS内容
-    $temp['pictures'] = $row['pictures'];
-    $temp['content'] = $row['content'];
-    $temp['title'] = $row['title'];
-
     $author_sql = "SELECT * FROM user WHERE id = '$author_id' LIMIT 1";
     $author_query = $pdo_connect->query($author_sql);
     $author = $author_query->fetch();
 
+    //BBS内容
+    $temp['id'] = $bbs_id;
+    $temp['title'] = $row['title'];
+    $temp['content'] = $row['content'];
+    $temp['pictures'] = $row['pictures'];
     //作者信息相关
-    $temp['avatar'] = $author['avatar'];
     $temp['name'] = $author['name'];
     $temp['sign'] = $author['sign'];
+    $temp['avatar'] = $author['avatar'];
+
 
     $result[$index] = $temp;
     $index ++;

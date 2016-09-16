@@ -23,6 +23,12 @@ $sign = $_POST['sign'];
 
 check_empty($name,$sign,$avatar);
 
+$check_sql = "SELECT * FROM user WHERE name = '$name'";
+$check_result = $pdo_connect->query($check_sql);
+if ($check_result->rowCount() > 1) {
+    paramErrorWithInfo("用户名已存在");
+}
+
 $sql = "UPDATE user SET name='$name',sign='$sign',avatar='$avatar' WHERE id='$id'";
 $update_result = $pdo_connect->exec($sql);
 

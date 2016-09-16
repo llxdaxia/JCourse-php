@@ -15,10 +15,7 @@ $bbs_id = $_POST['id'];
 $sql = "SELECT * FROM bbs WHERE id='$bbs_id'";
 $query_result = $pdo_connect->query($sql);
 $row = $query_result->fetch();
-//BBS内容
-$result['pictures'] = $row['pictures'];
-$result['content'] = $row['content'];
-$result['title'] = $row['title'];
+
 //作者id
 $author_id = intval($row['author_id']);
 
@@ -26,9 +23,16 @@ $author_id = intval($row['author_id']);
 $author_sql = "SELECT * FROM user WHERE id = '$author_id' LIMIT 1";
 $author_query = $pdo_connect->query($author_sql);
 $author = $author_query->fetch();
-$result['avatar'] = $author['avatar'];
+
+$result['id'] = $author_id;
 $result['name'] = $author['name'];
 $result['sign'] = $author['sign'];
+$result['avatar'] = $author['avatar'];
+
+//BBS内容
+$result['title'] = $row['title'];
+$result['content'] = $row['content'];
+$result['pictures'] = $row['pictures'];
 
 //bbs关系表查找
 $bbs_sql = "SELECT * FROM bbs_relation WHERE bbs_id='$bbs_id'";
@@ -46,29 +50,27 @@ foreach ($bbses as $bbs) {
     $comment = $comment_result->fetch();
 
     //评论内容
-    $t['content'] = $comment['content'];
-
+    $comments[$comment_index]['content'] = $comment['content'];
     $commenter_id = $comment['commenter_id'];
-    $object_id = $comment['object_id'];
+    $object_id = intval($comment['object_id']);
 
-    //评论作者信息
+    //评论者信息
     $commenter_sql = "SELECT * FROM user WHERE id = '$commenter_id' LIMIT 1";
     $commenter_query = $pdo_connect->query($commenter_sql);
     $commenter = $commenter_query->fetch();
-    $t['avatar'] = $commenter['avatar'];
-    $t['name'] = $commenter['name'];
-    $t['sign'] = $commenter['sign'];
+
+    $comments[$comment_index]['name'] = $commenter['name'];
+    $comments[$comment_index]['sign'] = $commenter['sign'];
+    $comments[$comment_index]['avatar'] = $commenter['avatar'];
 
     //回复对象信息
     $object_sql = "SELECT * FROM user WHERE id = '$object_id' LIMIT 1";
     $object_query = $pdo_connect->query($object_sql);
     $object = $object_query->fetch();
-    $tt['avatar'] = $object['avatar'];
-    $tt['name'] = $object['name'];
-    $tt['sign'] = $object['sign'];
 
-    $comments[$comment_index]['commenter'] = $t;
-    $comments[$comment_index]['object'] = $tt;
+    $comments[$comment_index]['objectId'] = $object_id;
+    $comments[$comment_index]['objectName'] = $object['name'];
+    $comment_index++;
 }
 
 //评论内容

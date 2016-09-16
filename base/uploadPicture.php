@@ -6,11 +6,11 @@
  * Time: 15:06
  */
 
-include '../base/connect_pdo.php';
-include '../base/token.php';
-include '../base/check.php';
-include '../base/header.php';
-include '../base/config.php';
+include 'connect_pdo.php';
+include 'token.php';
+include 'check.php';
+include 'header.php';
+include 'config.php';
 
 $headers = getallheaders();
 $id = get_UID($headers);
@@ -20,12 +20,12 @@ check_token_past_due($token);
 
 $uploads_dir = Config::$SERVICE_CACHE_IMAGE_DIR;
 
-if ($_FILES['picture']['name'] != '') { //文件名称
+if ($_FILES['picture']['name'] != '') {
     $status_code = $_FILES['picture']['error'];
     if ($status_code > 0) {
         switch ($status_code) {
             case UPLOAD_ERR_INI_SIZE:
-                $result = "上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值";
+                $result = "上传的文件超过了 php.ini 中 upload_max_file_size 选项限制的值";
                 break;
             case UPLOAD_ERR_FORM_SIZE:
                 $result = "上传文件的大小超过了 HTML 表单中 MAX_FILE_SIZE 选项指定的值";

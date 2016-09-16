@@ -15,9 +15,11 @@ $author_id = get_UID($headers);
 
 $pictures = $_POST['pictures'];
 $content = $_POST['content'];
+$title = $_POST['title'];
+$current_time = date("Y-m-d h:i:s");
 
-$sql = "INSERT INTO bbs (author_id,content,pictures) 
-VALUES ('$author_id','$content','$pictures')";
+$sql = "INSERT INTO bbs (author_id,title,content,pictures,time) 
+VALUES ('$author_id','$title','$content','$pictures','$current_time')";
 
 $add_bbs = $pdo_connect->exec($sql);
 if($add_bbs){

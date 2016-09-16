@@ -12,7 +12,7 @@
 
 function check_empty()
 {
-    $args = func_get_args(); //获取函数参数
+    $args = func_get_args();
 
     for ($i = 0; $i < count($args); $i++) {
         if ($args[$i] == "") {
