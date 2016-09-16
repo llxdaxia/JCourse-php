@@ -28,6 +28,7 @@ foreach ($rows as $row) {
     $temp['url'] = $row['url'];
     $temp['subtitle'] = $row['subtitle'];
     $temp['title'] = $row['title'];
+    $temp['cover'] = $row['cover'];
 
     $result[$index] = $temp;
     $index ++;

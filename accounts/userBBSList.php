@@ -2,31 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: linlongxin
- * Date: 2016/9/14
- * Time: 15:04
+ * Date: 2016/9/16
+ * Time: 22:32
  */
-
 include '../base/connect_pdo.php';
 include '../base/check.php';
-include '../base/config.php';
+include '../base/token.php';
 include '../base/header.php';
+include '../base/statusCode.php';
 
-$page = $_POST["page"];  //从零开始
-$page_num = $_POST["pageNum"];
+$id = $_POST['id'];
 
-if ($page_num == 0) {
-    $page_num = 10;
-}
-$start = $page_num * $page;
-$end = $page_num * ($page + 1);
-
-$sql = "SELECT * FROM bbs ORDER BY id DESC LIMIT $start,$page_num ";
-$query_result = $pdo_connect->query($sql);
-$rows = $query_result->fetchAll();
+$sql = "SELECT * FROM bbs WHERE author_id = '$id'";
+$query = $pdo_connect->query($sql);
+$rows = $query->fetchAll();
 
 $result = array();
 $index = 0;
-foreach ($rows as $row) {
+foreach ($rows as $row){
 
     $bbs_id = intval($row['id']);
     $author_id = intval($row['author_id']);
@@ -45,9 +38,7 @@ foreach ($rows as $row) {
     $temp['sign'] = $author['sign'];
     $temp['avatar'] = $author['avatar'];
 
-
     $result[$index] = $temp;
     $index ++;
 }
-
 echo json_encode($result);
