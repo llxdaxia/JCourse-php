@@ -36,8 +36,8 @@ foreach ($rows as $row) {
     $author_query = $pdo_connect->query($author_sql);
     $author = $author_query->fetch();
 
-    //BBS关系表 -- 评论条数
-    $bbs_sql = "SELECT * FROM bbs_comment_relation WHERE bbs_id='$bbs_id'";
+    //BBS评论条数
+    $bbs_sql = "SELECT * FROM comment WHERE bbs_id='$bbs_id'";
     $bbs_query = $pdo_connect->query($bbs_sql);
     $comment_num = $bbs_query->rowCount();
 

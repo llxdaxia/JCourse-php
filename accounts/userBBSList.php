@@ -28,11 +28,17 @@ foreach ($rows as $row){
     $author_query = $pdo_connect->query($author_sql);
     $author = $author_query->fetch();
 
+    //BBS评论条数
+    $bbs_sql = "SELECT * FROM comment WHERE bbs_id='$bbs_id'";
+    $bbs_query = $pdo_connect->query($bbs_sql);
+    $comment_num = $bbs_query->rowCount();
+
     //BBS内容
     $temp['id'] = $bbs_id;
     $temp['title'] = $row['title'];
     $temp['content'] = $row['content'];
     $temp['pictures'] = $row['pictures'];
+    $temp['commentNum'] = $comment_num;
     $temp['time'] = strtotime($row['time']);
     //作者信息相关
     $temp['name'] = $author['name'];
