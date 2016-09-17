@@ -24,7 +24,8 @@ $author_sql = "SELECT * FROM user WHERE id = '$author_id' LIMIT 1";
 $author_query = $pdo_connect->query($author_sql);
 $author = $author_query->fetch();
 
-$result['id'] = $author_id;
+$result['id'] = $bbs_id;
+$result['authorId'] = $author_id;
 $result['name'] = $author['name'];
 $result['sign'] = $author['sign'];
 $result['avatar'] = $author['avatar'];
@@ -36,7 +37,7 @@ $result['pictures'] = $row['pictures'];
 $result['time'] = strtotime($row['time']);
 
 //bbs关系表查找
-$bbs_sql = "SELECT * FROM bbs_relation WHERE bbs_id='$bbs_id'";
+$bbs_sql = "SELECT * FROM bbs_comment_relation WHERE bbs_id='$bbs_id'";
 $bbs_query = $pdo_connect->query($bbs_sql);
 $bbses = $bbs_query->fetchAll();
 
@@ -46,11 +47,12 @@ $comment_index = 0;
 foreach ($bbses as $bbs) {
 
     $comment_id = $bbs['comment_id'];
+
+    //评论内容
     $comment_sql = "SELECT * FROM comment WHERE id = '$comment_id' LIMIT 1";
     $comment_result = $pdo_connect->query($comment_sql);
     $comment = $comment_result->fetch();
 
-    //评论内容
     $comments[$comment_index]['content'] = $comment['content'];
     $commenter_id = $comment['commenter_id'];
     $object_id = intval($comment['object_id']);

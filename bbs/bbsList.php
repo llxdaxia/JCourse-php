@@ -31,9 +31,15 @@ foreach ($rows as $row) {
     $bbs_id = intval($row['id']);
     $author_id = intval($row['author_id']);
 
+    //作者信息
     $author_sql = "SELECT * FROM user WHERE id = '$author_id' LIMIT 1";
     $author_query = $pdo_connect->query($author_sql);
     $author = $author_query->fetch();
+
+    //BBS关系表 -- 评论条数
+    $bbs_sql = "SELECT * FROM bbs_comment_relation WHERE bbs_id='$bbs_id'";
+    $bbs_query = $pdo_connect->query($bbs_sql);
+    $comment_num = $bbs_query->rowCount();
 
     //BBS内容
     $temp['id'] = $bbs_id;
@@ -41,12 +47,12 @@ foreach ($rows as $row) {
     $temp['title'] = $row['title'];
     $temp['content'] = $row['content'];
     $temp['pictures'] = $row['pictures'];
+    $temp['commentNum'] = $comment_num;
     $temp['time'] = strtotime($row['time']);
     //作者信息相关
     $temp['name'] = $author['name'];
     $temp['sign'] = $author['sign'];
     $temp['avatar'] = $author['avatar'];
-
 
     $result[$index] = $temp;
     $index ++;
