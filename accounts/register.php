@@ -26,8 +26,10 @@ $real_token_str = $token->get_token($name, "pick_picture");
 $sign = "more code，keep heart";
 $avatar = Config::$DEFAULT_AVATAR;
 
-$insert_sql = "insert into user (name,password,avatar,token,sign) 
-values('$name','$password','$avatar','$real_token_str','$sign')";
+$current_time = date("Y-m-d H:i:s");
+
+$insert_sql = "insert into user (name,password,avatar,token,sign,time) 
+values('$name','$password','$avatar','$real_token_str','$sign','$current_time')";
 $insert_user = $pdo_connect->exec($insert_sql);
 
 if ($insert_user) {

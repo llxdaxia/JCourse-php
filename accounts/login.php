@@ -18,7 +18,8 @@ $login_sql = "select * from user where name = '$name' and password = '$password'
 
 $query_result = $pdo_connect->query($login_sql);
 if (empty($query_result)) {
-    serverError();
+    header("http/1.1 400 账号不存在");
+    $result["error"] = "账号不存在";
 }
 
 if ($query_result->rowCount()) {
@@ -40,7 +41,7 @@ if ($query_result->rowCount()) {
         'token' => $token_str
     );
 } else {
-    header("http/1.1 400 params error");
+    header("http/1.1 400 账号或密码错误");
     $result["error"] = "手机号码或密码错误";
 }
 

@@ -9,6 +9,7 @@ include '../base/connect_pdo.php';
 include '../base/check.php';
 include '../base/config.php';
 include '../base/header.php';
+include '../base/statusCode.php';
 
 $headers = getallheaders();
 $author_id = get_UID($headers);
