@@ -11,9 +11,9 @@ include '../base/connect_pdo.php';
 include '../base/check.php';
 include '../base/statusCode.php';
 
-$seedarray =microtime();
-$seedstr =split(" ",$seedarray,5);
-$seed =$seedstr[0]*1000000;
+$seed_array =microtime();
+$seed_str =split(" ",$seed_array,5);
+$seed =$seed_str[0]*1000000;
 
 srand($seed);
 
@@ -25,6 +25,7 @@ $row = $query_result->fetch();
 $result = array();
 if(!empty($row)){
     $result['id'] = $row['id'];
+    $result['title'] = $row['title'];
     $result['imageUrl'] = $row['image_url'];
     $result['webUrl'] = $row['web_url'];
 }

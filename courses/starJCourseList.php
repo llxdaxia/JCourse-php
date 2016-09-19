@@ -30,7 +30,7 @@ $end = $page_num * ($page + 1);
 
 //取个人收藏的j_course_id
 $sql = "SELECT j_course.* FROM user,j_course_relation,j_course WHERE user.id = '$uid' AND j_course_relation.user_id = '$uid'
-AND j_course.id = j_course_relation.j_course_id LIMIT $start,$page_num";
+AND j_course.id = j_course_relation.j_course_id ORDER BY j_course_relation.time DESC LIMIT $start,$page_num";
 
 $query_result = $pdo_connect->query($sql);
 $rows = $query_result->fetchAll();
@@ -42,6 +42,8 @@ foreach ($rows as $row) {
     $temp['subtitle'] = $row['subtitle'];
     $temp['cover'] = $row['cover'];
     $temp['title'] = $row['title'];
+    $temp['starNum'] = intval($row['star_num']);
+    $temp['visitNum'] = intval($row['visit_num']);
     $temp['content'] = $row['content'];
 
     $result[$index] = $temp;
