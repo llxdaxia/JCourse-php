@@ -19,6 +19,9 @@ $token = get_token($headers);
 check_token_past_due($token);
 
 $uploads_dir = Config::$SERVICE_CACHE_IMAGE_DIR;
+$root_image = "http://lemon95.cn/image/";
+$width = $_POST['width'];
+$height = $_POST['height'];
 
 if ($_FILES['picture']['name'] != '') {
     $status_code = $_FILES['picture']['error'];
@@ -46,8 +49,12 @@ if ($_FILES['picture']['name'] != '') {
     } else {
 
         $upload_result = move_uploaded_file($_FILES['picture']['tmp_name'], $uploads_dir . $_FILES['picture']['name']);
+        $url = $root_image.$_FILES['picture']['name'];
+        $sql = "INSERT INTO picture (url,width,height) VALUES ('$url','$width','$height')";
 
-        if ($upload_result) {
+        $insert_pic = $pdo_connect->exec($sql);
+
+        if ($upload_result && $insert_pic) {
             $result['info'] = "success";
         } else {
             $result['info'] = "failed";

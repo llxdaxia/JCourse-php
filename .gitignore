@@ -1,5 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-.idea
-.gitignore
-/base/connect_pdo.php
-/base/config.php
