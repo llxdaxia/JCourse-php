@@ -19,7 +19,7 @@ $token = get_token($headers);
 check_token_past_due($token);
 
 $uploads_dir = Config::$SERVICE_CACHE_IMAGE_DIR;
-$root_image = "http://lemon95.cn/image/";
+$root_image = "http://jcourse.lemon95.cn/image/";
 $width = $_POST['width'];
 $height = $_POST['height'];
 
@@ -55,7 +55,9 @@ if ($_FILES['picture']['name'] != '') {
         $insert_pic = $pdo_connect->exec($sql);
 
         if ($upload_result && $insert_pic) {
-            $result['info'] = "success";
+            $result['url'] = $url;
+            $result['width'] = $width;
+            $result['height'] = $height;
         } else {
             $result['info'] = "failed";
         }
